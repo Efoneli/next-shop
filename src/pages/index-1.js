@@ -2,6 +2,7 @@
 
 import Head from 'next/head'
 import Title from '../../components/Title';
+import { getProducts } from '../../lib/products';
 
 // const products = [
 //   { id: 1, title: "First Product" },
@@ -9,13 +10,13 @@ import Title from '../../components/Title';
 // ]
 
 export async function getStaticProps() {
-    const response = await fetch('https://localhost:1337/products');
-    const products = await response.json();
+  console.log('[HomePage] getStaticProps()');
+    const products = await getProducts();
+    return { props: { products } };
 }
 
-function HomePage() {
+function HomePage({ products }) {
 
-    
   console.log('[HomePage] render:', products);
   return (
     <>
