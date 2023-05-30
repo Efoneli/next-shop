@@ -13,11 +13,15 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps( { params: { id } } ) {
+    try {
     const product = await getProduct(id)
     return {
         props: { product },
         revalidate: 30, 
     };
+} catch (err) {
+    return { notFound: true };
+}
 }
 
 function ProductPage({ product }) {
