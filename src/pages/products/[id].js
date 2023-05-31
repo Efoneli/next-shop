@@ -1,7 +1,7 @@
-import Head from "next/head";
 import Image from "next/image";
-import Title from "../../../components/Title";
+import { ApiError } from "../../../lib/api";
 import { getProduct, getProducts } from "../../../lib/products";
+import Page from "../../../components/Page";
 
 export async function getStaticPaths() {
     const products = await getProducts();
@@ -21,18 +21,15 @@ export async function getStaticProps( { params: { id } } ) {
         revalidate: 30, 
     };
 } catch (err) {
+  if (err instanceof ApiError && err.status === 404) {
     return { notFound: true };
+  }
 }
 }
 
 function ProductPage({ product }) {
   return (
-    <>
-      <Head>
-        <title>Next Shop</title>
-      </Head>
-      <main className="px-6 py-4">
-        <Title>{product.title}</Title>
+    <Page title={product.title}>
         <div className="lg:flex justify-between items-center">
         <Image src={product.pictureUrl} alt='' height={480} width={640} />
         <div className='flex-1 lg:ml-4'>
@@ -46,8 +43,7 @@ function ProductPage({ product }) {
        
         </div>
        
-      </main>
-    </>
+    </Page>
   );
 }
 
