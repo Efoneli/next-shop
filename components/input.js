@@ -1,8 +1,9 @@
 
 
-function Input ({ type }) {
+function Input ({ type, required, value, onChange }) {
     return(
-        <input type={type}  className="border px-3 py-1 w-80" />
+        <input type={type} required={required} value={value} onChange={onChange} 
+        className="border px-3 py-1 w-80" />
     )
 }
 
