@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Image from "next/image";
 import Title from "../../../components/Title";
 import { getProduct, getProducts } from "../../../lib/products";
 
@@ -32,9 +33,19 @@ function ProductPage({ product }) {
       </Head>
       <main className="px-6 py-4">
         <Title>{product.title}</Title>
-        <p>
+        <div className="lg:flex justify-between items-center">
+        <Image src={product.pictureUrl} alt='' height={480} width={640} />
+        <div className='flex-1 lg:ml-4'>
+        <p className='text-sm'>
             {product.description}
         </p>
+        <p className="mt-2 text-lg font-bold">
+          {product.price}
+        </p>
+        </div>
+       
+        </div>
+       
       </main>
     </>
   );
