@@ -1,4 +1,7 @@
 import { fetchJson } from "../../../lib/api";
+import cookie from 'cookie';
+
+const { CMS_URL } = process.env
 
 async function handleLogin(req, res) {
     if (req.method !== 'POST') {
@@ -7,13 +10,18 @@ async function handleLogin(req, res) {
     }
     const {  email, password } = req.body;
     try{
-        const { jwt, user} = await fetchJson("http://localhost:1337/auth/local", {
+        const { jwt, user} = await fetchJson(`${CMS_URL}/auth/local`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ identifier: email, password }),
           });
           //TODO set jwt cookie
-        res.status(200).json({
+        res.status(200)
+        .setHeader('Set-Cookie', cookie.serialize('jwt', jwt, {
+            path: '/api',
+            httpOnly: true,
+        }))
+        .json({
             id: user.id,
             name: user.username,
         });
