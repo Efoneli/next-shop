@@ -13,6 +13,9 @@ const signOut = useSignOut;
           <Link href="/">Next Shop</Link>
         </li>
         <li role="separator" className="flex-1" />
+        <li>
+          Cart
+        </li>
         {user ? (
           <>
             <li>{user.name}</li>
