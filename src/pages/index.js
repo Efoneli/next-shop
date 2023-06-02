@@ -3,7 +3,6 @@ import ProductCard from '../../components/ProductCard';
 import Page from '../../components/Page';
 
 
-
 export async function getStaticProps() {
   console.log('[HomePage] getStaticProps()');
     const products = await getProducts();
@@ -14,7 +13,6 @@ export async function getStaticProps() {
 }
 
 function HomePage({ products }) {
-
   console.log('[HomePage] render:', products);
   return (
     <Page title='Indoor Plants'> 
